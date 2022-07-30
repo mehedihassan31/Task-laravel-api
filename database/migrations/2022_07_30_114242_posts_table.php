@@ -16,8 +16,10 @@ class PostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('post_content');
-            $table->string('user_id');
-            $table->string('page_id')->nullable();
+            $table->integer('user_id');
+            $table->unsignedBigInteger('page_id')->nullable();
+            $table->foreign('page_id')->references('id')->on('pages')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

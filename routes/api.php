@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PagesController;
+use App\Http\Controllers\Api\PostsController;
+use App\Http\Controllers\Api\FollowController;
 
 
 /*
@@ -32,6 +34,14 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     //Create a post
     Route::post('/person/attach-post',[PostsController::class,"create"]);
     Route::post('/page/{pageId}/attach-post',[PostsController::class,"create"]);
+
+    //follow
+    Route::post('/follow/person/{personId}',[FollowController::class,"toFollow"]);
+    Route::post('/follow/page/{pageId}',[FollowController::class,"toFollow"]);
+
+    //feed
+    Route::get('/person/feed',[FeedController::class,"getFeedData"]);
+
 
 
 });

@@ -16,7 +16,8 @@ class PagesTable extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('owner_id');
+            $table->integer('owner_id');
+            $table->foreign('owner_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     
