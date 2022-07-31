@@ -15,7 +15,9 @@ class FollowController extends Controller
 
         $from_user_id=Auth::user()->id;
         $check_person_existOrNot=Users::where('id',$personId)->first();
-        if($check_person_existOrNot ==true && $personId!=null  && $personId!=$from_user_id){
+        $check_already_following=Follows::where('follower_user_id',$from_user_id)->where('following_user_id',$personId)->first();
+        
+        if($check_person_existOrNot ==true &&$check_already_following !=true  && $personId!=null  && $personId!=$from_user_id){
             $data=Follows::create([
                 'follower_user_id'=>$from_user_id,
                 'following_user_id'=>$personId,
@@ -25,7 +27,7 @@ class FollowController extends Controller
             ]);
         }
         return response([
-            "The person is not exist or you can not follow yourself"
+            "The person is not exist or you can not follow yourself or you are Already Follower"
         ]);
 
     }
@@ -37,9 +39,11 @@ class FollowController extends Controller
 
         //checking user exist or not
         $check_page_existOrNot=Pages::where('id',$pageId)->first();
+        $check_already_following=Follows::where('follower_user_id',$from_user_id)->where('following_page_id',$pageId)->first();
+        
         $owner_id=$check_page_existOrNot->owner_id;
 
-        if($check_page_existOrNot ==true && $pageId!=null && $owner_id!=$from_user_id){
+        if($check_page_existOrNot ==true && $check_already_following !=true  && $pageId!=null && $owner_id!=$from_user_id){
             $data=Follows::create([
                 'follower_user_id'=>$from_user_id,	
                 'following_page_id'=>$pageId,
@@ -49,7 +53,7 @@ class FollowController extends Controller
             ]);
         }
         return response([
-            "This page is not exist or you are owner of this page"
+            "This page is not exist or you are owner of this page or Already Follower"
         ]);
     }
 
