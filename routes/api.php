@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PagesController;
 use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\FeedController;
 
 
 /*
@@ -22,13 +23,12 @@ use App\Http\Controllers\Api\FollowController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 
-    
 // });
 
 
 Route::group(['middleware'=>['auth:sanctum']], function () {
 
-    Route::get('/test',[AuthController::class,"test"]);
+    //Create a page
     Route::post('/page/create',[PagesController::class,"create"]);
 
     //Create a post
@@ -37,7 +37,7 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
 
     //follow
     Route::post('/follow/person/{personId}',[FollowController::class,"toFollow"]);
-    Route::post('/follow/page/{pageId}',[FollowController::class,"toFollow"]);
+    Route::post('/follow/page/{pageId}',[FollowController::class,"toFollowPage"]);
 
     //feed
     Route::get('/person/feed',[FeedController::class,"getFeedData"]);
@@ -46,7 +46,7 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
 
 });
 
-
+// Route for login and register a new user
 Route::post('/register',[AuthController::class,"register"]);
 Route::post('/login',[AuthController::class,"login"]);
 

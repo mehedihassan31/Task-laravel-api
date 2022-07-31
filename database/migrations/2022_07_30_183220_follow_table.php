@@ -13,12 +13,11 @@ class FollowTable extends Migration
      */
     public function up()
     {
-        Schema::create('follow', function (Blueprint $table) {
+        Schema::create('follows', function (Blueprint $table) {
             $table->id();
             $table->integer('follower_user_id')->nullable();
             $table->integer('following_user_id')->nullable();
             $table->unsignedBigInteger('following_page_id')->nullable();
-
             $table->foreign('follower_user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('following_user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('following_page_id')->references('id')->on('pages')->cascadeOnDelete();

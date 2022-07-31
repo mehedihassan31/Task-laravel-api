@@ -5,6 +5,7 @@ namespace App\Models\Api;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Posts extends Model
 {
     use HasFactory;
@@ -14,4 +15,5 @@ class Posts extends Model
         'user_id',
         'page_id'
     ];
+
 }

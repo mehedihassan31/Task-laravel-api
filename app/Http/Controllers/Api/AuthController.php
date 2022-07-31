@@ -22,6 +22,8 @@ class AuthController extends Controller
 
         ]);
 
+        //insert user data 
+
         $user=Users::create([
             'first_name'=>$fields['first_name'],
             'last_name'=>$fields['first_name'],
@@ -57,6 +59,7 @@ class AuthController extends Controller
             ], 401);
         }
 
+
         $token = $user->createToken('myToken')->plainTextToken;
         $response = [
                     'user' => $user,
@@ -65,11 +68,6 @@ class AuthController extends Controller
 
         return response($response, 201);
 
-    }
-
-
-    public function test(){
-        return "hello";
     }
 
       
