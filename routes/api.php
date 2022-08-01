@@ -41,12 +41,9 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
 
     //feed
     Route::get('/person/feed',[FeedController::class,"getFeedData"]);
-
-
-
 });
 
 // Route for login and register a new user
-Route::post('/register',[AuthController::class,"register"]);
-Route::post('/login',[AuthController::class,"login"]);
+Route::post('/auth/register',[AuthController::class,"register"]);
+Route::post('/auth/login',[AuthController::class,"login"]);
 

@@ -11,11 +11,8 @@ use Auth;
 class FeedController extends Controller
 {
     public function getFeedData(){
-        $user_id=Auth::user()->id;
         //get following user post
-        $get_data=Users::with('PersonFollow.PersonPost')->where('id',$user_id)->get();
-
-        return  $get_data;
+        return  Users::with('PersonFollow.PersonPost')->where('id',Auth::user()->id)->get();
 
     }
 }

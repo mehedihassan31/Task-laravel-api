@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Api\Follows;
@@ -14,10 +13,11 @@ class FollowController extends Controller
     public function toFollow($personId=null){
 
         $from_user_id=Auth::user()->id;
+        //checking user exist or not
         $check_person_existOrNot=Users::where('id',$personId)->first();
         $check_already_following=Follows::where('follower_user_id',$from_user_id)->where('following_user_id',$personId)->first();
         
-        if($check_person_existOrNot ==true &&$check_already_following !=true  && $personId!=null  && $personId!=$from_user_id){
+        if($check_person_existOrNot && !$check_already_following && $personId!=null  && $personId!=$from_user_id){
             $data=Follows::create([
                 'follower_user_id'=>$from_user_id,
                 'following_user_id'=>$personId,
@@ -37,13 +37,13 @@ class FollowController extends Controller
         //get user id from auth
         $from_user_id=Auth::user()->id;
 
-        //checking user exist or not
+        //checking page exist or not
         $check_page_existOrNot=Pages::where('id',$pageId)->first();
         $check_already_following=Follows::where('follower_user_id',$from_user_id)->where('following_page_id',$pageId)->first();
         
         $owner_id=$check_page_existOrNot->owner_id;
 
-        if($check_page_existOrNot ==true && $check_already_following !=true  && $pageId!=null && $owner_id!=$from_user_id){
+        if($check_page_existOrNot && !$check_already_following && $pageId!=null && $owner_id!=$from_user_id){
             $data=Follows::create([
                 'follower_user_id'=>$from_user_id,	
                 'following_page_id'=>$pageId,

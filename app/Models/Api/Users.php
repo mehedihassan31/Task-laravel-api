@@ -17,6 +17,7 @@ class Users extends Model
         'last_name',
         'email',
         'password',
+        
     ];
     protected $hidden = [
         'password',
